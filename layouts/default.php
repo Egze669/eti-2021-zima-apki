@@ -4,6 +4,7 @@
 </head>
 <body>
         <h1>Hello APSL</h1>
+        <?php include 'addons/flashMessages.php'?>
     <?php if($session->has('user')):?>
 	    <p>Witaj <?php $session->get('user')?></p>
     <?php else:?>

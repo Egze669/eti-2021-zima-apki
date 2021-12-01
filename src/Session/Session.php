@@ -9,11 +9,11 @@ class Session
      */
     private bool $sessionStarted = false;
 
-    private array $flashMessages;
+    private FlashMessages $flashMessages;
 
     public function __construct()
     {
-        //TODO: maybe initialize flash messages?
+        $this->flashMessages = new FlashMessages($this);
     }
 
     public function start()
@@ -96,4 +96,17 @@ class Session
         }
         $_SESSION['globals'] = $globals;
     }
+    public  function getFlashMessages()
+    {
+        return $this->flashMessages->getMessages();
+    }
+    public function setFlashMessage(string $type, string $message)
+    {
+        $this->flashMessages->addMessage($message,$type);
+    }
+    public function hasFlashMessages()
+    {
+        return !empty($this->flashMessages->peekMessages());
+    }
+
 }

@@ -43,7 +43,7 @@ class LogoutController implements ControllerInterface
         );
 
         $this->session->destroy();
-
+        $this->session->setFlashMessage('succes','wylogowano do systemu');
         return $response;
     }
 }

@@ -5,6 +5,8 @@ namespace App;
 use App\Controllers\DoLoginController;
 use App\Controllers\LogoutController;
 use App\Controllers\SimpleController;
+use App\Repository\InMemoryUserRepository;
+use App\Security\Sha1PasswordEncoder;
 use App\Session\Session;
 use App\Controllers\PageController;
 
@@ -43,7 +45,9 @@ class ServiceContainer
                 'controller' => function() use ($router){
                     return new DoLoginController(
                         $this->get('session'),
-                        $router
+                        $router,
+                        $this->get('user_repository'),
+                        $this->get('password_encoder')
                     );
                 }
             ]);
@@ -61,6 +65,19 @@ class ServiceContainer
         };
         $this->services['session'] = function (){
             return new Session();
+        };
+        $this->services['password_encoder'] = function (){
+            return new Sha1PasswordEncoder();
+        };
+        $this->services['user_repository'] = function (){
+            return InMemoryUserRepository::createFromPlainPasswords(
+                $this->get('password_encoder'),
+                [
+                    'arek'=>'test123',
+                    'romek' =>'pass123',
+                    'tester' => 'haslo123'
+                    ]
+            );
         };
     }
 
@@ -98,4 +115,13 @@ class ServiceContainer
     {
         return isset($this->services[$id]);
     }
+    /**
+     * TODO Json
+     * json decode
+     * find usercredencials by name
+     * repository jsonuserrepository
+     * na $users sciezka bez create
+     * find credentials poprawic
+     * zamiast return InMemoryRepo do mojego repo
+     */
 }
