@@ -73,11 +73,7 @@ class ServiceContainer
         $this->services['user_repository'] = function (){
             return JsonUserRepository::createFromPlainPasswords(
                 $this->get('password_encoder'),
-                [
-                    'arek'=>'test123',
-                    'romek' =>'pass123',
-                    'tester' => 'haslo123'
-                    ]
+                json_decode(fread(fopen("/var/www/eti-wprowadzenie/data/.data.json"), filesize("/var/www/eti-wprowadzenie/data/.data.json")), false)
             );
         };
     }
