@@ -71,10 +71,14 @@ class ServiceContainer
             return new Sha1PasswordEncoder();
         };
         $this->services['user_repository'] = function (){
-            return JsonUserRepository::createFromPlainPasswords(
+            return InMemoryUserRepository::createFromPlainPasswords(
                 $this->get('password_encoder'),
-                json_decode(fread(fopen("/var/www/eti-wprowadzenie/data/.data.json"), filesize("/var/www/eti-wprowadzenie/data/.data.json")), false)
-            );
+                [
+                    'test1'=>'haslo',
+                    'test2' =>'haslo2',
+                    'tester' => 'haslo123'
+                ]
+        );
         };
     }
 

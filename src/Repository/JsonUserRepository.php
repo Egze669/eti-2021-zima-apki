@@ -26,15 +26,15 @@ class JsonUserRepository implements UserRepositoryInterface
      * @param array $users
      * @return JsonUserRepository
      */
-    public static function createFromPlainPasswords(Sha1PasswordEncoder $encoder, array $users)
-    {
-        $encodedPasswords = [];
-        foreach ($users as $username => $password) {
-            $encodedPasswords[$username] = $encoder->encodePassword($password);
-        }
-
-        return new self($encodedPasswords);
-    }
+//    public static function createFromPlainPasswords(Sha1PasswordEncoder $encoder, array $users)
+//    {
+//        $encodedPasswords = [];
+//        foreach ($users as $username => $password) {
+//            $encodedPasswords[$username] = $encoder->encodePassword($password);
+//        }
+//
+//        return new self($encodedPasswords);
+//    }
     public function findCredentialsByUsername(string $username): ?UserCredentials
     {
         $users = json_decode(file_get_contents("../data/users.json"), true);
