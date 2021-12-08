@@ -4,6 +4,7 @@ namespace App;
 
 use App\Controllers\ControllerInterface;
 use App\Exception\PageNotFoundException;
+use App\Repository\JsonUserRepository;
 use App\Response\ErrorResponse;
 
 use App\Response\LayoutResponse;

@@ -6,6 +6,7 @@ use App\Controllers\DoLoginController;
 use App\Controllers\LogoutController;
 use App\Controllers\SimpleController;
 use App\Repository\InMemoryUserRepository;
+use App\Repository\JsonUserRepository;
 use App\Security\Sha1PasswordEncoder;
 use App\Session\Session;
 use App\Controllers\PageController;
@@ -70,7 +71,7 @@ class ServiceContainer
             return new Sha1PasswordEncoder();
         };
         $this->services['user_repository'] = function (){
-            return InMemoryUserRepository::createFromPlainPasswords(
+            return JsonUserRepository::createFromPlainPasswords(
                 $this->get('password_encoder'),
                 [
                     'arek'=>'test123',
